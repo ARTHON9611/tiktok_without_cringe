@@ -28,6 +28,10 @@ class textInputField extends StatelessWidget {
         ),
         ),
         obscureText: isHidden,
+        obscuringCharacter: '*',
+        autocorrect: false,
+        enableSuggestions: true,
+        textInputAction: TextInputAction.next,
         onSubmitted: (value){Text[labelText]=value;},
     );
   }

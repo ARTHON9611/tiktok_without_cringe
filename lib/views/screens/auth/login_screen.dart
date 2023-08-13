@@ -8,6 +8,7 @@ class loginScreen extends StatelessWidget {
   loginScreen({super.key});
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _pwdController = new TextEditingController();
+  Map<String,String> controllerText = {'Email':'','Password':'',};
 
 
   @override
@@ -24,13 +25,13 @@ class loginScreen extends StatelessWidget {
           Text("TikTok Clone",style: TextStyle(fontWeight: FontWeight.w900,color:buttonColor,fontSize: 35 ),),
           const SizedBox(height: 2,),
           const Text("Login",style: TextStyle(fontWeight: FontWeight.w700,fontSize: 25),),
-          Container(margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),width: MediaQuery.of(context).size.width,child: textInputField(icon: Icons.email, labelText: 'Email',controller: _emailController,Text: {},)),
-          Container(margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),width: MediaQuery.of(context).size.width,child: textInputField(icon: Icons.password_sharp, labelText: 'Password',controller: _pwdController,isHidden: true,Text: {},)),
+          Container(margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),width: MediaQuery.of(context).size.width,child: textInputField(icon: Icons.email, labelText: 'Email',controller: _emailController,Text: controllerText,)),
+          Container(margin: EdgeInsets.symmetric(vertical: 10,horizontal: 10),width: MediaQuery.of(context).size.width,child: textInputField(icon: Icons.password_sharp, labelText: 'Password',controller: _pwdController,isHidden: true,Text: controllerText,)),
           const SizedBox(height: 30,),
 
 
           InkWell(
-            onTap: (){print("login button pressed");},
+            onTap: (){authController.loginUser(email: controllerText['Email']!, password: controllerText['Password']!);},
             splashColor: Colors.grey,
             child: Container(
               width: MediaQuery.of(context).size.width,
