@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:tiktok_without_cringe/constants.dart';
 import 'package:tiktok_without_cringe/controller/auth_controller.dart';
 import 'package:tiktok_without_cringe/views/screens/auth/login_screen.dart';
@@ -12,6 +16,9 @@ void main() async{
   await Firebase.initializeApp().then((value){
     Get.put(AuthController());
   });
+  await DefaultCacheManager().emptyCache();
+  var appDir = (await getTemporaryDirectory()).path;
+new Directory(appDir).delete(recursive: true);
 
   runApp(const MyApp());
 }

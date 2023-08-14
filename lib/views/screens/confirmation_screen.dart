@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:tiktok_without_cringe/constants.dart';
+import 'package:tiktok_without_cringe/controller/upload_video_controller.dart';
 import 'package:tiktok_without_cringe/views/widgets/text_input_field.dart';
-import 'package:video_player/video_player.dart';
+import 'package:cached_video_player/cached_video_player.dart';
 
 class confirmationScreen extends StatefulWidget {
   final File videoFile;
@@ -14,7 +16,7 @@ class confirmationScreen extends StatefulWidget {
 }
 
 class _confirmationScreenState extends State<confirmationScreen> {
-  late VideoPlayerController controller;
+  late CachedVideoPlayerController controller;
   TextEditingController songController= new TextEditingController();
   TextEditingController captionController= new TextEditingController();
 
@@ -22,7 +24,7 @@ class _confirmationScreenState extends State<confirmationScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller=VideoPlayerController.file(widget.videoFile);
+    controller=CachedVideoPlayerController.file(widget.videoFile);
     setState(() {
       controller.initialize();
       controller.play();
@@ -45,7 +47,7 @@ class _confirmationScreenState extends State<confirmationScreen> {
             borderRadius: BorderRadius.circular(20),
             child: SizedBox(height: MediaQuery.of(context).size.height/1.5,
             width: MediaQuery.of(context).size.width-20,
-            child: VideoPlayer(controller),
+            child: CachedVideoPlayer(controller),
             ),
           ),
           const SizedBox(height: 30,),
@@ -53,7 +55,7 @@ class _confirmationScreenState extends State<confirmationScreen> {
             child: Column(children: [
               Container(margin: EdgeInsets.all(10),width: MediaQuery.of(context).size.width-20,child: textInputField(icon: Icons.music_note, labelText: 'Music', controller: songController, Text: {})),
               Container(width: MediaQuery.of(context).size.width-20,child: textInputField(icon: Icons.closed_caption, labelText: 'Caption', controller: captionController, Text: {})),
-              ElevatedButton(onPressed: (){}, child: Icon(Icons.share))
+              ElevatedButton(onPressed: (){uploadMedia.uploadVideo(musicName: "", captionName: "", videoPath: widget.videoPath);}, child: Icon(Icons.share))
             ],),
           )
         ],
