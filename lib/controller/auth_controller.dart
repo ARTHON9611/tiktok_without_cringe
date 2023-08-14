@@ -10,6 +10,7 @@ import 'package:tiktok_without_cringe/constants.dart';
 import 'package:tiktok_without_cringe/models/user.dart' as model;
 import 'package:tiktok_without_cringe/views/screens/auth/login_screen.dart';
 import 'package:tiktok_without_cringe/views/screens/auth/sign_up_screen.dart';
+import 'package:tiktok_without_cringe/views/screens/home_screen.dart';
 class AuthController extends GetxController{
 
   static AuthController instance = Get.find() ;
@@ -30,7 +31,7 @@ class AuthController extends GetxController{
       Get.offAll(()=>loginScreen());
     }else{
        print("signupscreen else part");
-    Get.offAll(()=>signUpScreen());
+    Get.offAll(()=>homeScreen());
     }
   }
   
@@ -84,7 +85,7 @@ void loginUser({required String email,required String password})async{
     Get.snackbar('Error Logging In',"PLease enter all the fields");
   }
   }on FirebaseAuthException catch(e){
-    Get.snackbar('Error Logging In',e.message.toString());
+    Get.snackbar('Error Logging In',e.message.toString().trim());
   }
 
 }

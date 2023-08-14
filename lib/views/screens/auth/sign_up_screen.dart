@@ -1,10 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:tiktok_without_cringe/constants.dart';
-import 'package:tiktok_without_cringe/controller/auth_controller.dart';
 import 'package:tiktok_without_cringe/views/screens/auth/login_screen.dart';
 import 'package:tiktok_without_cringe/views/widgets/text_input_field.dart';
 
@@ -92,8 +89,8 @@ class _signUpScreenState extends State<signUpScreen> {
            Row(mainAxisAlignment: MainAxisAlignment.center,children: [Container(child: Text("Already have an account?",style: TextStyle(fontSize: 18),),),
            SizedBox(width: 10,),
            InkWell(
-            onTap: (){Get.snackbar('',controllerText['Username']!);
-              //Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>loginScreen()));
+            onTap: (){
+              Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>loginScreen()));
             },
             child: Container(child: Text("Login",style: TextStyle(fontSize: 18,color: buttonColor),),))])
             
