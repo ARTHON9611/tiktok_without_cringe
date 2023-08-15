@@ -7,16 +7,38 @@ class homeScreen extends StatefulWidget {
 
   @override
   State<homeScreen> createState() => _homeScreenState();
-  
 }
 
 class _homeScreenState extends State<homeScreen> {
-   int page=0;
+  int page = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Container(child: Pages[page],)),
-    bottomNavigationBar: BottomNavigationBar(onTap: (index){setState(() {
-      page=index;
-    });},currentIndex: page,type: BottomNavigationBarType.fixed,backgroundColor: backgroundColor,selectedItemColor: Colors.red,unselectedItemColor: Colors.white,showUnselectedLabels: true,items: [BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home"),BottomNavigationBarItem(icon: Icon(Icons.search),label: "Search"),BottomNavigationBarItem(icon:customIcon(),label: ''),BottomNavigationBarItem(icon: Icon(Icons.message),label: "Messages"),BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined),label: "Profile")]),);
+    return Scaffold(
+      body: Center(
+          child: Container(
+        child: Pages[page],
+      )),
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (index) {
+            setState(() {
+              page = index;
+            });
+          },
+          currentIndex: page,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: backgroundColor,
+          selectedItemColor: Colors.red,
+          unselectedItemColor: Colors.white,
+          showUnselectedLabels: true,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+            BottomNavigationBarItem(icon: customIcon(), label: ''),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.message), label: "Messages"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_2_outlined), label: "Profile")
+          ]),
+    );
   }
 }

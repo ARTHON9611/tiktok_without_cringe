@@ -7,10 +7,10 @@ import 'package:tiktok_without_cringe/controller/upload_video_controller.dart';
 import 'package:tiktok_without_cringe/views/screens/add_video_Screen.dart';
 import 'package:tiktok_without_cringe/views/screens/video_screen.dart';
 
-const Pages=[
+List Pages = [
   videoScreen(),
   Text("Search"),
-  addVdoScreen(),
+  const addVdoScreen(),
   Text("Messages"),
   Text("Profile"),
 ];

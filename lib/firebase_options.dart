@@ -66,7 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '261478912153',
     projectId: 'tiktok-clone-66b91',
     storageBucket: 'tiktok-clone-66b91.appspot.com',
-    iosClientId: '261478912153-n5bucanbdgt85iknck717nu55sn1gkrf.apps.googleusercontent.com',
+    iosClientId:
+        '261478912153-n5bucanbdgt85iknck717nu55sn1gkrf.apps.googleusercontent.com',
     iosBundleId: 'com.example.tiktokWithoutCringe',
   );
 
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '261478912153',
     projectId: 'tiktok-clone-66b91',
     storageBucket: 'tiktok-clone-66b91.appspot.com',
-    iosClientId: '261478912153-jdksnah0c2kc4pg1r2q7hqjsi09ck75k.apps.googleusercontent.com',
+    iosClientId:
+        '261478912153-jdksnah0c2kc4pg1r2q7hqjsi09ck75k.apps.googleusercontent.com',
     iosBundleId: 'com.example.tiktokWithoutCringe.RunnerTests',
   );
 }

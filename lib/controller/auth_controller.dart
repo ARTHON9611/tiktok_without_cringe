@@ -11,78 +11,88 @@ import 'package:tiktok_without_cringe/models/user.dart' as model;
 import 'package:tiktok_without_cringe/views/screens/auth/login_screen.dart';
 import 'package:tiktok_without_cringe/views/screens/auth/sign_up_screen.dart';
 import 'package:tiktok_without_cringe/views/screens/home_screen.dart';
-class AuthController extends GetxController{
 
-  static AuthController instance = Get.find() ;
+class AuthController extends GetxController {
+  static AuthController instance = Get.find();
 
   late Rx<User?> _user;
 
   @override
-  void onReady(){ 
+  void onReady() {
     super.onReady();
     _user = Rx<User?>(firebaseAuth.currentUser);
     _user.bindStream(firebaseAuth.authStateChanges());
-    ever(_user,_setInitialState);
+    ever(_user, _setInitialState);
     //ever(_user,_setInitialState);
   }
-  _setInitialState(User? user){
-    if(user==null){
+
+  _setInitialState(User? user) {
+    if (user == null) {
       print("signupscreen");
-      Get.offAll(()=>loginScreen());
-    }else{
-       print("signupscreen else part");
-    Get.offAll(()=>homeScreen());
+      Get.offAll(() => loginScreen());
+    } else {
+      print("signupscreen else part");
+      Get.offAll(() => homeScreen());
     }
   }
-  
 
-
-  Future<File> imgPicker()async{
-    final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if(pickedImage!=null){Get.snackbar('Image Selected','Successfully');}
+  Future<File> imgPicker() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      Get.snackbar('Image Selected', 'Successfully');
+    }
     return File(pickedImage!.path);
   }
 
-   Future<String> _uploadToStorage(File image)async{
-    Reference ref= await firebaseStrage.ref().child('Profile Pics').child(firebaseAuth.currentUser!.uid);
+  Future<String> _uploadToStorage(File image) async {
+    Reference ref = await firebaseStrage
+        .ref()
+        .child('Profile Pics')
+        .child(firebaseAuth.currentUser!.uid);
 
     UploadTask uploadTask = ref.putFile(image);
-    TaskSnapshot snap =  await uploadTask;
-    return  await   snap.ref.getDownloadURL();
-
-
+    TaskSnapshot snap = await uploadTask;
+    return await snap.ref.getDownloadURL();
   }
 
-  void resgisterUser({required String username,required String email,required String password,File? image})async{
+  void resgisterUser(
+      {required String username,
+      required String email,
+      required String password,
+      File? image}) async {
+    try {
+      if (email.isNotEmpty &&
+          username.isNotEmpty &&
+          password.isNotEmpty &&
+          image != null) {
+        UserCredential credential = await firebaseAuth
+            .createUserWithEmailAndPassword(email: email, password: password);
+        Get.snackbar('Account created', "Now you can proceed for login");
+        String downloadUrl = await _uploadToStorage(image);
 
-
-    try{
-      if(email.isNotEmpty&&username.isNotEmpty&&password.isNotEmpty&&image!=null){
-
-        UserCredential credential=   await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-         Get.snackbar('Account created', "Now you can proceed for login"); 
-         String downloadUrl =  await _uploadToStorage(image);
-
-         model.User user = model.User(email: email, uid:credential.user!.uid, profilePic: downloadUrl , userName: username);
+        model.User user = model.User(
+            email: email,
+            uid: credential.user!.uid,
+            profilePic: downloadUrl,
+            userName: username);
 
         await firestore.collection('users').doc(user.uid).set(user.toJson());
-      }else{
-        Get.snackbar('Error Occured',"Please fill  the details completely");
+      } else {
+        Get.snackbar('Error Occured', "Please fill  the details completely");
       }
-    }on FirebaseAuthException catch(e){
-      Get.snackbar('Error Occured', e.message.toString()); 
-
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar('Error Occured', e.message.toString());
     }
   }
 
-void loginUser({required String email,required String password})async{
-  try{
-  await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-  Get.snackbar('Login Success','Your account has been logged in');
-  }on FirebaseAuthException catch(e){
-    Get.snackbar('Error Logging In',e.message.toString().trim());
+  void loginUser({required String email, required String password}) async {
+    try {
+      await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      Get.snackbar('Login Success', 'Your account has been logged in');
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar('Error Logging In', e.message.toString().trim());
+    }
   }
-
-}
-
 }
