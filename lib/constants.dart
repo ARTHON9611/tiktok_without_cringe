@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:tiktok_without_cringe/controller/auth_controller.dart';
 import 'package:tiktok_without_cringe/controller/upload_video_controller.dart';
 import 'package:tiktok_without_cringe/views/screens/add_video_Screen.dart';
+import 'package:tiktok_without_cringe/views/screens/video_screen.dart';
 
 const Pages=[
-  Text("Home"),
+  videoScreen(),
   Text("Search"),
   addVdoScreen(),
   Text("Messages"),

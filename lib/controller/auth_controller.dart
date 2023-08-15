@@ -61,7 +61,7 @@ class AuthController extends GetxController{
 
         UserCredential credential=   await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
          Get.snackbar('Account created', "Now you can proceed for login"); 
-         String downloadUrl =  await _uploadToStorage(image!);
+         String downloadUrl =  await _uploadToStorage(image);
 
          model.User user = model.User(email: email, uid:credential.user!.uid, profilePic: downloadUrl , userName: username);
 
@@ -77,13 +77,8 @@ class AuthController extends GetxController{
 
 void loginUser({required String email,required String password})async{
   try{
-    if(email!=null&&password!=null){
   await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
   Get.snackbar('Login Success','Your account has been logged in');
-  
-  }else{
-    Get.snackbar('Error Logging In',"PLease enter all the fields");
-  }
   }on FirebaseAuthException catch(e){
     Get.snackbar('Error Logging In',e.message.toString().trim());
   }

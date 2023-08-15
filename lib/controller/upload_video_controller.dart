@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:tiktok_without_cringe/constants.dart';
+import 'package:tiktok_without_cringe/models/video.dart';
 import 'package:video_compress/video_compress.dart';
 
 class uploadVideoController extends GetxController{
@@ -50,10 +52,12 @@ class uploadVideoController extends GetxController{
       String videoUrl = await _uploadVideoTStorage('Video $len',videoPath);
       String thumnailUrl = await _uploadImageToStorage('Video $len',videoPath);
 
-      if(videoUrl!=null){
-        Get.snackbar('Uplading Success',"");
-      }
 
+      Video video = Video(caption: captionName, commentCount: 0, id: 'Video $len', likes: [], shareCount:0, songName: musicName, thumbnail: thumnailUrl, uid: uid, username: (snap.data() as Map<String,dynamic>)['name'], videoUrl: videoUrl,imgUrl:(snap.data() as Map<String,dynamic>)['profilePic'] );
+      await firestore.collection('videos').doc('video $len').set(video.toJson());
+      Fluttertoast.showToast(msg: "Video uploaded successfully");
+      //Get.snackbar('Uploaded Successfully','video uploaded with captionname: $captionName');
+      Get.back();
     }catch(e){
       Get.snackbar('Error Uploading',e.toString());
     }

@@ -28,7 +28,7 @@ class _confirmationScreenState extends State<confirmationScreen> {
     setState(() {
       controller.initialize();
       controller.play();
-      controller.setVolume(0);
+      controller.setVolume(1);
       controller.setLooping(true);
     });
 
